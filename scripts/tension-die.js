@@ -17,7 +17,7 @@ class TensionDie{
 		 "12": "d12",
 	  },
 	  onChange: value => { // value is the new value of the setting
-		console.log(`Tension die set to ${value}`)
+		SGP.log(false, `Tension die set to ${value}`)
 	  },
 	});
 	
@@ -26,7 +26,7 @@ class TensionDie{
 
 	//static _classifyStringTerm(term, {intermediate=true, prior, next}={}) {
 
-	SGP.log("called the monkeypatched classifyStringTerm")
+	SGP.log(false, "called the monkeypatched classifyStringTerm")
 	
 	let term = args[0]
 	

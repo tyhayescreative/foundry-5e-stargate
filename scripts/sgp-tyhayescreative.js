@@ -26,4 +26,5 @@ class SGP {
 Hooks.once('init', () => {
   SGP.initialize();
   TensionDie.initialize();
+  SGP.log(true, "initialised Ty's SGP module");
 });
