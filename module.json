@@ -1,7 +1,7 @@
 {
   "name": "sgp-tyhayescreative",
   "title": "Ty's 5e Stargate Mod",
-  "description": "Additions and alterations to the base 5e system, so that any modules that require 5e as a dependency still works.",
+  "description": "Additions and alterations to the base 5e system, so that any modules that require 5e as a dependency still work.",
   "authors": [
     {
       "name": "Ty Hayes"
@@ -12,7 +12,7 @@
    "scripts": [
     "scripts/sgp-tyhayescreative.js",
 	"scripts/todo-list.js",
-	//"scripts/tension-die.js"
+	"scripts/tension-die.js"
   ],
    "languages": [
     {
@@ -23,5 +23,10 @@
    ],
    "styles": [
     "styles/sgp-tyhayescreative.css"
-   ]
+   ],
+	"dependencies": [
+    {
+        "name": "lib-wrapper"
+    }
+ ]
 }
