@@ -1,4 +1,6 @@
 {
-  "SPG-TYHAYESCREATIVE": {
-  }
+	"SGP.SkillSci": "Science",
+	"SGP.SkillEng": "Engineering",
+	"SGP.SkillCul": "Culture",
+	"SGP.SkillPil": "Pilot",
 }

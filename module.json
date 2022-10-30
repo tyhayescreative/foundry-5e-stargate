@@ -12,7 +12,7 @@
    "scripts": [
     "scripts/sgp-tyhayescreative.js",
 	"scripts/todo-list.js",
-	"scripts/tension-die.js"
+	"scripts/tension-die.js"	
   ],
    "languages": [
     {

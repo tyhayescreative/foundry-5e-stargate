@@ -6,6 +6,8 @@ class SGP {
     SGP: 'SGP',
   }
   
+  //static template = require('../template.json')
+  
   static initialize() {
 	 
   }
@@ -26,5 +28,6 @@ class SGP {
 Hooks.once('init', () => {
   SGP.initialize();
   TensionDie.initialize();
+  //SGP.CONFIG.initialize();
   SGP.log(true, "initialised Ty's SGP module");
 });
