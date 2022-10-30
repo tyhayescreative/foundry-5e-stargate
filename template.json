@@ -1,0 +1,42 @@
+{
+ "Actor": {
+   "templates": {
+     "creature":{
+	   "skills": {
+          "cul": {
+            "value": 0,
+            "ability": "wis",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+		  },
+          "sci": {
+            "value": 0,
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "eng": {
+            "value": 0,
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "pil": {
+            "value": 0,
+            "ability": "dex",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+           }
+          }
+		}
+	  }
+	}
+  }
+}
