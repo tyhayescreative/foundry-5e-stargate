@@ -95,6 +95,10 @@ class SGPCONFIG {
 	  pil: { label: "SGP.SkillPil", ability: "dex" }
 	};
 
+	static additionalAttributes = {
+	  "moxie": 0,
+	  "dp": 2
+	}
 	/*
 	*/
 
@@ -105,32 +109,48 @@ class SGPCONFIG {
 
 	static skillsToRemove = ["arc","his","rel"]
 
+	/*
+		Calculate the derived property moxie bonus and 
+		add it into the actorData
+		@param {ActorData} Copy of the data for the actor being prepared. *Will be mutated.*
+		TODO: This should probably match the signature of Actor5e._calculateInitBonus and take
+		arguments for checkBonus and bonusData, but I don't need them right now
+	*/
+	static prepareMoxie(actor){
+		
+		let data = actor.data.data
+		data.attributes.moxie = Math.max(data.abilities.wis.mod, data.abilities.cha.mod)
+	}
 
+	/*
+		Ensure Determination Points exist in the actor data
+		@param {ActorData} Copy of the data for the actor being prepared. *Will be mutated.*
+		TODO: This should probably match the signature of Actor5e._calculateInitBonus and take
+		arguments for checkBonus and bonusData, but I don't need them right now
+	*/
+
+	static prepareDetermination(actorData){
+		let data = actorData.data
+		if (data.attributes.dp == 'undefined'){
+			data.attributes.dp = 2
+		}
+	}
 	/* 
-
+	
+	Modify the parts of the base 5e system that need tweaking on init
+	(called via a hook from the main module script)
 	*/
 
    static initialize  = function(){
 
-	/*libWrapper.register(SGP.MODULE_ID, 'game.dnd5e.entities.Actor5e.prototype.prepareBaseData', function (wrapped, ...args) {
+	libWrapper.register(SGP.MODULE_ID, 'game.dnd5e.entities.Actor5e.prototype.prepareDerivedData', function (wrapped, ...args) {
 
 		//let CONFIG = game.dnd5e.config
 		const result = wrapped(...args); // remember to call the original (wrapped) method
 		console.log('game.dnd5e.entities.Actor5e.prototype.prepareBaseData was called with', ...args);
-		console.log(this)	
-		const skills = this.actor.system.skills;
-		for ( const [key, skill] of Object.entries(game.dnd5e.config.DND5E.skills) ) {
-		  skills[key] = this.actor.system.skills[key];
-		  if ( !skills[key] ) {
-			skills[key] = foundry.utils.deepClone(game.system.template.Actor.templates.creature.skills.acr);
-			skills[key].ability = skill.ability;
-			updates[`system.skills.${key}`] = foundry.utils.deepClone(skills[key]);
-		  }
-		}
-		this.actor.system.skills = skills;
-		
-		return result; // this return needs to have the same shape (signature) as the original, or things start breaking
-	});*/
+		SGPCONFIG.prepareMoxie(this)
+		SGPCONFIG.prepareDetermination(this.data)
+	});
 
 
 	for (const key in SGPCONFIG.additionalSkills){
@@ -148,5 +168,13 @@ class SGPCONFIG {
 		game.system.model.Actor.character.skills[key] = SGP.template.Actor.templates.creature.skills[key]
 	}
 	
+	for (const key in SGP.template.Actor.templates.creature.attributes){
+		SGP.log(true, `adding data ${SGPCONFIG.additionalAttributes[key]} as ${key}`)
+
+		game.system.template.Actor.templates.creature.attributes[key] = SGP.template.Actor.templates.creature.attributes[key]
+		
+		//this looks shoddy and should probably be done at a higher level, because it makes the above redundant
+		game.system.model.Actor.character.attributes[key] = SGP.template.Actor.templates.creature.attributes[key]
+	}	
   }
 }

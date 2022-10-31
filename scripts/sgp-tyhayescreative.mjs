@@ -45,7 +45,11 @@ class SGP {
               "passive": ""
             }
           }
-		}
+		},
+      "attributes": {
+		  "moxie": 0,
+		  "dp": 2,
+	    }
 	  }
 	}
   }
