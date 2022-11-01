@@ -47,7 +47,7 @@ class SGP {
           }
 		},
       "attributes": {
-		  "moxie": 0,
+		  "moxie": {"value": 0, "bonus": 0},
 		  "dp": 2,
 	    }
 	  }

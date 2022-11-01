@@ -109,6 +109,32 @@ class SGPCONFIG {
 
 	static skillsToRemove = ["arc","his","rel"]
 
+  /* -------------------------------------------- */
+
+	  /**
+	   * Convert a bonus value to a simple integer for displaying on the sheet - copied verbatim from foundryvtt dnd5e system
+	   * @param {number|string|null} bonus  Actor's bonus value.
+	   * @param {object} data               Actor data to use for replacing @ strings.
+	   * @returns {number}                  Simplified bonus as an integer.
+	   * @protected
+	   */
+	   
+	   
+	   
+	static _simplifyBonus(bonus, data) {
+		if ( !bonus ) return 0;
+		if ( Number.isNumeric(bonus) ) return Number(bonus);
+		try {
+		  const roll = new Roll(bonus, data);
+		  if ( !roll.isDeterministic ) return 0;
+		  roll.evaluate({ async: false });
+		  return roll.total;
+		} catch(error) {
+		  console.error(error);
+		  return 0;
+		}
+	  }
+
 	/*
 		Calculate the derived property moxie bonus and 
 		add it into the actorData
@@ -116,10 +142,22 @@ class SGPCONFIG {
 		TODO: This should probably match the signature of Actor5e._calculateInitBonus and take
 		arguments for checkBonus and bonusData, but I don't need them right now
 	*/
-	static prepareMoxie(actor){
+	static prepareMoxie(actorData, globalCheckBonus, bonusData){
+				
+		const data = actorData.data;
+		const flags = actorData.flags.dnd5e || {};
+		const ablCheckBonus = data.abilities.wis.mod > data.abilities.cha.mod ? this._simplifyBonus(data.abilities.wis.bonuses?.check, bonusData) : this._simplifyBonus(data.abilities.cha.bonuses?.check, bonusData);
 		
-		let data = actor.data.data
-		data.attributes.moxie = Math.max(data.abilities.wis.mod, data.abilities.cha.mod)
+		const moxie = data.attributes.moxie
+		
+		moxie.mod = Math.max(data.abilities.wis.mod, data.abilities.cha.mod)
+		moxie.prof = 0 // new Proficiency(data.attributes.prof, 0, true)  //but can't import proficiency. Base d5d initiative line is  new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
+		
+		moxie.value = moxie.value ?? 0
+		moxie.bonus = moxie.value // any feats that add to it
+		moxie.total = moxie.mod + moxie.bonus + ablCheckBonus + globalCheckBonus
+		if (Number.isNumeric(moxie.prof.term) ) moxie.total += moxie.prof.flat
+		
 	}
 
 	/*
@@ -148,7 +186,14 @@ class SGPCONFIG {
 		//let CONFIG = game.dnd5e.config
 		const result = wrapped(...args); // remember to call the original (wrapped) method
 		console.log('game.dnd5e.entities.Actor5e.prototype.prepareBaseData was called with', ...args);
-		SGPCONFIG.prepareMoxie(this)
+		
+			
+		const bonuses = getProperty(this.data.data, "bonuses.abilities") || {};
+		
+		const bonusData = this.getRollData();
+		const checkBonus = SGPCONFIG._simplifyBonus(bonuses.check, bonusData);
+		 
+		SGPCONFIG.prepareMoxie(this.data, checkBonus, bonusData)
 		SGPCONFIG.prepareDetermination(this.data)
 	});
 
