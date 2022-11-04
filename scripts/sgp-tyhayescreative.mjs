@@ -48,8 +48,10 @@ class SGP {
 		},
       "attributes": {
 		  "moxie": {"value": 0, "bonus": 0},
-		  "dp": 2,
-	    }
+	    },
+	  "resources": {
+		  "primary": {"value":2,"max":2,"sr":false,"lr":false,"label":"Determination"}
+		  }
 	  }
 	}
   }

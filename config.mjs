@@ -169,9 +169,19 @@ class SGPCONFIG {
 
 	static prepareDetermination(actorData){
 		let data = actorData.data
-		if (data.attributes.dp == 'undefined'){
-			data.attributes.dp = 2
-		}
+		for (const key in SGP.template.Actor.templates.creature.resources){
+			SGP.log(true, `adding ${key} as resource`)
+		
+			if (!data.hasOwnProperty('resources')){
+				game.system.template.Actor.templates.common.resources = {}
+			}
+			if (!data.resources.hasOwnProperty(key)){
+				data.resources[key] = {}
+			}
+			if (data.resources[key].value == null){
+				data.resources[key] = SGP.template.Actor.templates.creature.resources[key]
+			}
+		}	
 	}
 	/* 
 	
@@ -205,8 +215,8 @@ class SGPCONFIG {
 	//preLocalize("skills", { key: "label", sort: true });
 	
 	for (const key in SGP.template.Actor.templates.creature.skills){
-		SGP.log(true, `adding data ${SGPCONFIG.additionalSkills[key]} as ${key}`)
-
+		SGP.log(true, `adding ${key} as skill`)
+		
 		game.system.template.Actor.templates.creature.skills[key] = SGP.template.Actor.templates.creature.skills[key]
 		
 		//this looks shoddy and should probably be done at a higher level, because it makes the above redundant
@@ -214,12 +224,24 @@ class SGPCONFIG {
 	}
 	
 	for (const key in SGP.template.Actor.templates.creature.attributes){
-		SGP.log(true, `adding data ${SGPCONFIG.additionalAttributes[key]} as ${key}`)
-
+		SGP.log(true, `adding ${key} as attribute`)
+		
 		game.system.template.Actor.templates.creature.attributes[key] = SGP.template.Actor.templates.creature.attributes[key]
 		
 		//this looks shoddy and should probably be done at a higher level, because it makes the above redundant
 		game.system.model.Actor.character.attributes[key] = SGP.template.Actor.templates.creature.attributes[key]
+	}
+	
+	for (const key in SGP.template.Actor.templates.creature.resources){
+		SGP.log(true, `adding ${key} as resource`)
+		
+		if (!game.system.template.Actor.templates.common.hasOwnProperty('resources')){
+			game.system.template.Actor.templates.common.resources = {}
+		}
+		game.system.template.Actor.templates.common.resources[key] = SGP.template.Actor.templates.creature.resources[key]
+		
+		//this looks shoddy and should probably be done at a higher level, because it makes the above redundant
+		game.system.model.Actor.character.resources[key] = SGP.template.Actor.templates.creature.resources[key]
 	}	
   }
 }
