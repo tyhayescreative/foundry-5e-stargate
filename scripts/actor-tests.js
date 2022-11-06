@@ -4,7 +4,7 @@
 
 async function CreateSGPActor(name, stats = undefined){
 
-	let actor = await Actor.create({
+	let actor = Actor.create({
 		name: name,
 		type: "character",
 		img: "icons/svg/mystery-man.svg"
@@ -47,102 +47,94 @@ Hooks.on("quenchReady", (quench) => {
 		 
 		 first param is a title for the test suite
 	  */
-      describe("Test Actor creation", function () {
+      describe("Test Actor creation", async function () {
 		/*  
 			it() as an individual test
 			first param is the name for the individual test
 		*/
+			
+			let testActor;
+			
+			after(() => testActor.then((actor) => actor.delete() ))
+			
 			it("Create actor", async function () {
 			
-				await CreateSGPActor("Test with stats", {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20})
-									.then((actor) => {
-														
-										/* actual test code goes here */
-										/* if an exception is raised, the test fails automatically */
-										/* tests seem to pass by default */
-										//assert.ok(true);
-								
-									return actor	
-									})
+				testActor =  CreateSGPActor("Test with stats", {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20})
+				
+				console.log(testActor)
 									
-									/* remember to clean up*/
-									.then((actor) => actor.delete())
-			});
+		});
+				
+      });
 		
-		describe("Test Actor data", function () {
+		describe("Test Actor data", async function () {
 			/*  
 				it() as an individual test
 				first param is the name for the individual test
 			*/
+			let testActor;
+			let statsArray = {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20}
 			
+			before(() => testActor = CreateSGPActor("Test with stats", statsArray) )
+			after(() => testActor.then((actor) => actor.delete() ))
+
+
 			it("Check stats", async function () {
 			
-				let statsArray = {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20}
-				
-				await CreateSGPActor("Test with stats", statsArray)
-										.then((actor) => {
+				let actor = await testActor
 											
 											/* actual test code goes here */
 											/* if an exception is raised, the test fails automatically */
 											/* tests seem to pass by default */
-											for (let stat in statsArray ){
-												expect(actor.data.data.abilities[stat].value).to.equal(statsArray[stat])	
-											}
-											return actor
-										})
-										
-										/* remember to clean up*/
-										.then((actor) => actor.delete())
-				});
+					for (let stat in statsArray ){
+						expect(actor.data.data.abilities[stat].value).to.equal(statsArray[stat])	
+					}
+
+			});
 				
 			it("Verify stats", async function () {
 			
-				let statsArray = {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20}
 				let modsArray = {'str': -1, 'dex': 1, 'con': 2, 'int': 3, 'wis': 4, 'cha': 5}
-				await CreateSGPActor("Test with stats", statsArray)
-										.then((actor) => {
-											
-											/* actual test code goes here */
-											/* if an exception is raised, the test fails automatically */
-											/* tests seem to pass by default */
-											expect(actor.data.data.abilities.str.value).to.not.equal(11)	
+				
+				let actor = await testActor
 
-											return actor
-										})
-										.then((actor) => {
-											for (let stat in modsArray ){
-												expect(actor.data.data.abilities[stat].mod).to.equal(modsArray[stat])	
-											}
-											return actor
-										})
-										/* remember to clean up*/
-										.then((actor) => actor.delete())
-				});
-			
-			it("Check skills", async function () {
-			
-				let statsArray = {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20}
-				let skillsArray = {'sci': 3, 'eng': 3, 'cul': 4, 'pil': 1}
+				expect(actor.data.data.abilities.str.value).to.not.equal(11)	
 
-				await CreateSGPActor("Test with stats", statsArray)
-										.then((actor) => {
+				for (let stat in modsArray ){
+					expect(actor.data.data.abilities[stat].mod).to.equal(modsArray[stat])	
+					}
+				
+			})
+				
+
+		
+		describe("Check SGP skills", async function () {
+			/*  
+				it() as an individual test
+				first param is the name for the individual test
+			*/
+			let testActor;
+			let statsArray = {'str': 8, 'dex': 12, 'con': 14, 'int': 16, 'wis': 18, 'cha': 20}
+			
+			before(() => testActor = CreateSGPActor("Test with stats", statsArray) )
+			after(() => testActor.then((actor) => actor.delete() ))
+
+			let skillsArray = {'sci': 3, 'eng': 3, 'cul': 4, 'pil': 1}
+				
+			for (let skill in skillsArray ){
+				
+				it(`${skill} total`, async function () {
+			
+				let actor = await testActor
 											
-											/* actual test code goes here */
-											/* if an exception is raised, the test fails automatically */
-											/* tests seem to pass by default */
-											
-											for (let skill in skillsArray ){
-												console.log(skill)
-												expect(actor.data.data.skills[skill].total).to.equal(skillsArray[skill])	
-											}
-											return actor
-										})
-										
-										/* remember to clean up*/
-										.then((actor) => actor.delete())
-				});
-		});;
-      });
+				for (let skill in skillsArray ){
+					console.log(skill)
+					expect(actor.data.data.skills[skill].total).to.equal(skillsArray[skill])	
+				}
+			});
+			}
+		});;	
+	});;
 	},
 	/* displayName is the text shown for the test group */
     { displayName: "SGP: Actor Basics" }
