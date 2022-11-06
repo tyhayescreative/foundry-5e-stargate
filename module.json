@@ -13,7 +13,8 @@
      "scripts/sgp-tyhayescreative.mjs",
 	"scripts/todo-list.js",
 	"scripts/tension-die.js",
-	  	"config.mjs"
+	"scripts/actor-tests.js",
+	"config.mjs"
 	],
   "esmodules": [
 

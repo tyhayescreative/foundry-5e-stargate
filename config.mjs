@@ -191,6 +191,16 @@ class SGPCONFIG {
 
    static initialize  = function(){
 
+	libWrapper.register(SGP.MODULE_ID, 'game.dnd5e.entities.Actor5e.prototype.prepareBaseData', function (wrapped, ...args) {
+
+		//let CONFIG = game.dnd5e.config
+		const result = wrapped(...args); // remember to call the original (wrapped) method
+		console.log('game.dnd5e.entities.Actor5e.prototype.prepareBaseData was called with', ...args);
+		
+		
+		SGPCONFIG.prepareDetermination(this.data)
+	});
+
 	libWrapper.register(SGP.MODULE_ID, 'game.dnd5e.entities.Actor5e.prototype.prepareDerivedData', function (wrapped, ...args) {
 
 		//let CONFIG = game.dnd5e.config
@@ -204,7 +214,6 @@ class SGPCONFIG {
 		const checkBonus = SGPCONFIG._simplifyBonus(bonuses.check, bonusData);
 		 
 		SGPCONFIG.prepareMoxie(this.data, checkBonus, bonusData)
-		SGPCONFIG.prepareDetermination(this.data)
 	});
 
 
