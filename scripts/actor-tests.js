@@ -4,7 +4,7 @@
 
 async function CreateSGPActor(name, stats = undefined){
 
-	let actor =  Actor.create({
+	let actor = await Actor.create({
 		name: name,
 		type: "character",
 		img: "icons/svg/mystery-man.svg"
