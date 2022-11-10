@@ -1,0 +1,1 @@
+Character Sheet templates and apps adapted from GPL v3 licensed Sadovsf FoundryVTT system (https://raw.githubusercontent.com/sadovsf/StargateRPGSystem/)

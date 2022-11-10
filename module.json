@@ -10,10 +10,11 @@
   "version": "0.1",
   "minimumCoreVersion": "0.9.0",
    "scripts": [
-     "scripts/sgp-tyhayescreative.mjs",
+    "scripts/sgp-tyhayescreative.mjs",
 	"scripts/todo-list.js",
 	"scripts/tension-die.js",
 	"scripts/actor-tests.js",
+	"templates/actor-sheet.js",
 	"config.mjs"
 	],
   "esmodules": [
@@ -27,7 +28,10 @@
     }   
    ],
    "styles": [
-    "styles/sgp-tyhayescreative.css"
+    "styles/sgp-tyhayescreative.css",
+	"styles/item-sheet.css",
+	"styles/player-sheet.css",
+	"styles/sgprpg.css"
    ],
 	"dependencies": [
     {
