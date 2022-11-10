@@ -80,9 +80,8 @@
 
 
 <!-- ATTRIBUTES SECTION -->
-
   <div class="attr columnflex nowrap spaced center">
-    {{#each data.attributes as |attr a|}}
+    {{#each data.abilities as |attr a|}}
       <div class="stat columnflex nowrap center middle" data-attr="{{a}}">
         <a type="roll" class="txt-btn large" data-bonus="data.attributes.{{a}}.mod">{{a}}</a>
         <input data_type="ability_value" name="data.attributes.{{a}}.value" type="number" value="{{attr.value}}">
@@ -91,28 +90,27 @@
     {{/each}}
   </div>
 
-
 <!-- Skills (20)-->
-
   <section class="skills columnflex nowrap spaced">
     <h3>Skills</h3>
 
-    {{#each data.skills as |skill s|}}
+    {{#each config.skills as |skill s|}}
       <div class="rowflex nowrap" data-skill="{{s}}">
         <input data_type="skill_prof" name="data.skills.{{s}}.proficient" type="checkbox" {{checked skill.proficient}}>
         <input data_type="skill_value" name="data.skills.{{s}}.value" class="w30" value="{{skill.value}}">
-        <a type="roll" class="txt-btn" data-bonus="data.skills.{{s}}.value">{{s}}</a>
-        <span class="mod">
+        <a type="roll" class="txt-btn" data-bonus="data.skills.{{s}}.value">{{skill}}</a>
+        {{!-- COMMENT
+		<span class="mod">
           <select data_type="skill_mod"  name="data.skills.{{s}}.mod" class="skillModSelect">
             {{selectOptions ../config.abilities selected=skill.mod localize=false}}
           </select>
           <a class="skill-mod-revert" title="Revert to default attribute mod"><i class="fa fa-undo" style="font-size: 8px;"></i></a>
         </span>
+		--}}
       </div>
     {{/each}}
 
   </section>
-
 
 <!-- hp -->
 
@@ -210,15 +208,16 @@
 
   <section class="saves columnflex nowrap">
     <h3>Saves</h3>
-    {{#each data.saves as |save s|}}
+{{!-- COMMENT
+    {{#each data.abilities as |save s|}}
       <div class="rowflex nowrap" data-save="{{s}}">
-        <input data_type="skill_prof" name="data.saves.{{s}}.proficient" type="checkbox" {{checked save.proficient}}>
+        <input data_type="skill_prof" type="checkbox" {{checked {{s}}.saveProf.flat}}>
         <input name="data.saves.{{s}}.value" class="w30" value="{{save.value}}">
         <a type="roll" class="txt-btn" data-bonus="data.saves.{{s}}.value">{{lookup ../config.saves s}}</a>
       </div>
     {{/each}}
+--}}
   </section>
-
 
 
 
@@ -237,7 +236,7 @@
   <section class="inventory flexcol nowrap center">
     <h4 class="flex0">Notes</h4>
     <div class="flexrow flex1" style="width: 100%">
-      <textarea name="data.abilities.notes">{{data.abilities.notes}}</textarea>
+      <textarea name="data.flags.SGP.notes">{{data.flags.SGP.notes}}</textarea>
     </div>
   </section>
 
