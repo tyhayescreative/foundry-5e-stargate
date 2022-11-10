@@ -94,11 +94,11 @@
   <section class="skills columnflex nowrap spaced">
     <h3>Skills</h3>
 
-    {{#each config.skills as |skill s|}}
+    {{#each skills as |skill s|}}
       <div class="rowflex nowrap" data-skill="{{s}}">
-        <input data_type="skill_prof" name="data.skills.{{s}}.proficient" type="checkbox" {{checked skill.proficient}}>
-        <input data_type="skill_value" name="data.skills.{{s}}.value" class="w30" value="{{skill.value}}">
-        <a type="roll" class="txt-btn" data-bonus="data.skills.{{s}}.value">{{skill}}</a>
+        <input data_type="skill_prof" name="data.skills.{{s}}.prof.flat" type="checkbox" {{checked skill.prof.flat}}>
+        <input data_type="skill_value" name="data.skills.{{s}}.total" class="w30" value="{{skill.total}}">
+        <a type="roll" class="txt-btn" data-bonus="data.skills.{{s}}.total">{{skill.label}}</a>
         {{!-- COMMENT
 		<span class="mod">
           <select data_type="skill_mod"  name="data.skills.{{s}}.mod" class="skillModSelect">
@@ -118,9 +118,9 @@
     <div class="section columnflex nowrap middle center">
       <label class="txtcenter" title="Hit Points">HP</label>
       <div class="rowflex nowrap">
-        <input name="data.health.value" type="number" value="{{data.health.value}}" placeholder="20" class="stat w40" data-dtype="Number" value="{{data.health}}">
+        <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" placeholder="20" class="stat w40" data-dtype="Number" value="{{data.health}}">
         <span class="slash">/</span>
-        <input name="data.health.max" type="number" value="{{data.health.max}}" placeholder="20" class="stat w40" data-dtype="Number" value="{{data.health}}">
+        <input name="data.attributes.hp.max" type="number" value="{{data.attributes.hp.max}}" placeholder="20" class="stat w40" data-dtype="Number" value="{{data.health}}">
       </div>
 
     </div>
@@ -226,7 +226,7 @@
   <section class="bulk columnflex nowrap middle center">
       <h3>Vest bulk capacity</h3>
 	  {{!--  COMMENT OUT BULK 
-      <input name="data.bulk" type="number"  class="stat w40" value="{{data.bulk}}" data-dtype="Number">
+      <input name="data.flags.SGP.bulk" type="number"  class="stat w40" value="{{dataflags.SGP.bulk}}" data-dtype="Number">
 	  --}}
 	  <label class="not-implemented">Not Implemented</label>
   </section>

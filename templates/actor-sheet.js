@@ -74,6 +74,13 @@ class SGPActorSheet extends ActorSheet{
 				//NOT IMPLEMENTED
 			}
         });
+		
+		
+		data.skills = data.data.skills
+		for (let s in data.skills){
+			data.skills[s].label = CONFIG.DND5E.skills[s]
+		}
+		
 		SGP.log('true', data)
         return data;
     }
