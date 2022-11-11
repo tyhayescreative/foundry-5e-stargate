@@ -10,6 +10,7 @@
  * @type {object}
  * @private
  */
+  
 const _preLocalizationRegistrations = {};
 
 /**
@@ -151,7 +152,7 @@ class SGPCONFIG {
 		const moxie = data.attributes.moxie
 		
 		moxie.mod = Math.max(data.abilities.wis.mod, data.abilities.cha.mod)
-		moxie.prof = 0 // new Proficiency(data.attributes.prof, 0, true)  //but can't import proficiency. Base d5d initiative line is  new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
+		moxie.prof = 0 //new Proficiency(data.attributes.prof, 0, true)  //0 //but can't import proficiency. Base d5d initiative line is  new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
 		
 		moxie.value = moxie.value ?? 0
 		moxie.bonus = moxie.value // any feats that add to it

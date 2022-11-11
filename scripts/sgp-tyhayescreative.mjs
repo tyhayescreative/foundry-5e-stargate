@@ -74,11 +74,21 @@ class SGP {
   }
 }
 
-Hooks.once('init', () => {
+Hooks.once('init', () => { 
+
+
+SGP.log(true, "game:")
+SGP.log(true, game);
+SGP.log(true, "global window:")
+SGP.log(true, window);
   SGP.initialize();
   TensionDie.initialize();
   SGP.log(true, "running sgp.config.initialize()")
   SGPCONFIG.initialize();
   SGP.CONFIG = SGPCONFIG;
   SGP.log(true, "initialised Ty's SGP module");
+  
+  class SGPActor extends game.dnd5e.entities.Actor5e {}
 });
+
+

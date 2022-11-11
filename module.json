@@ -8,6 +8,7 @@
     }
   ],
   "version": "0.1",
+  "system": ["dnd5e"],
   "minimumCoreVersion": "0.9.0",
    "scripts": [
      "scripts/sgp-tyhayescreative.mjs",
@@ -33,5 +34,17 @@
     {
         "name": "lib-wrapper"
     }
- ]
+   ],
+   "relationships": {
+   		"systems": [
+			{
+				"id": "dnd5e",
+				"type": "system",
+				"manifest": "https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json",
+				"compatibility": {
+					"minimum": "1.5.0"
+				}
+			}
+		]
+	}
 }
