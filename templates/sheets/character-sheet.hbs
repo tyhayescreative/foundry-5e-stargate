@@ -96,8 +96,11 @@
 
     {{#each skills as |skill s|}}
       <div class="rowflex nowrap" data-skill="{{s}}">
-        <input data_type="skill_prof" name="data.skills.{{s}}.prof.flat" type="checkbox" {{checked skill.prof.flat}}>
-        <input data_type="skill_value" name="data.skills.{{s}}.total" class="w30" value="{{skill.total}}">
+ 	    <a class="proficiency-toggle skill-proficiency" title="{{skill.hover}}">{{{skill.icon}}}</a>
+        {{!-- COMMENT
+		<input data_type="skill_prof" name="data.skills.{{s}}.prof.flat" type="checkbox" {{checked skill.prof.flat}}>
+        --}}
+		<input data_type="skill_value" name="data.skills.{{s}}.total" class="w30" value="{{skill.total}}">
         <a type="roll" class="txt-btn" data-bonus="data.skills.{{s}}.total">{{skill.label}}</a>
         {{!-- COMMENT
 		<span class="mod">

@@ -77,13 +77,19 @@ class SGP {
 Hooks.once('init', () => {
   SGP.log(true, "running sgp.config.initialize()")
 
+SGP.log(false, "game:")
+SGP.log(false, game);
+SGP.log(false, "global window:")
+SGP.log(false, window);
   SGP.initialize();
   TensionDie.initialize();
   SGPCONFIG.initialize();
   SGP.CONFIG = SGPCONFIG;
-  SGPActorSheet.initialize();
+  SGPCharSheet.initialize();
   
   
   SGP.log(true, "initialised Ty's SGP module");
 
 });
+
+

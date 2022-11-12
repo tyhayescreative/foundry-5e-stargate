@@ -1,5 +1,7 @@
-
-class SGPActorSheet extends ActorSheet{
+class SGPCharSheet {	
+	static initialize(){
+		
+	class SGPActorSheet extends game.dnd5e.applications.ActorSheet5eCharacter{
     get template(){
         return `modules/sgp-tyhayescreative/templates/sheets/character-sheet.hbs`;
 
@@ -81,16 +83,18 @@ class SGPActorSheet extends ActorSheet{
 			data.skills[s].label = CONFIG.DND5E.skills[s]
 		}
 		
-		SGP.log('true', data)
+		SGP.log(true, data)
         return data;
     }
+		
+	}
 	
-	static initialize(){
 	Actors.registerSheet('dnd5e', SGPActorSheet	, {
 		label: 'SGP Character Sheet',
 		types: ['character'],
 		makeDefault: false,
 		});
-	}
+	
+  }
 }
 
