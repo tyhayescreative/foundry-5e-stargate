@@ -1,7 +1,7 @@
 class SGPCharSheet {	
-	static initialize(){
+  static initialize(){
 		
-	class SGPActorSheet extends game.dnd5e.applications.ActorSheet5eCharacter{
+   class SGPActorSheet extends game.dnd5e.applications.ActorSheet5eCharacter{
     get template(){
         return `modules/sgp-tyhayescreative/templates/sheets/character-sheet.hbs`;
 
@@ -17,7 +17,7 @@ class SGPCharSheet {
 
         // https://foundryvtt.wiki/en/development/guides/SD-tutorial/SD07-Extending-the-ActorSheet-class
     }
-	
+	/*
 	getData(options) {
         let isOwner = this.actor.isOwner;
 
@@ -59,7 +59,7 @@ class SGPCharSheet {
         data.death_failure1 = data.data.deathSaves.fails > 0;
         data.death_failure2 = data.data.deathSaves.fails > 1;
         data.death_failure3 = data.data.deathSaves.fails > 2;
-*/
+
         //data.config = mergeObject(CONFIG.SGRPG, {
 		data.config =  mergeObject(CONFIG.DND5E, {
             conditions: {
@@ -86,7 +86,7 @@ class SGPCharSheet {
 		SGP.log(true, data)
         return data;
     }
-		
+		*/
 	}
 	
 	Actors.registerSheet('dnd5e', SGPActorSheet	, {

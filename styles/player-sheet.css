@@ -1,6 +1,4 @@
-
-
- .charsheet input[type="range"].progress-bar {
+.charsheet input[type="range"].progress-bar {
     width: 100px;
 }
 .charsheet input[type="range"].progress-bar::-moz-range-thumb {
@@ -601,4 +599,28 @@
 
 .charsheet .sg-sheet-body {
     display: block;
+
+/* Ty's edits from here */
+
+	height: 820px
+}
+
+.sgrpg.charsheet .attr g.stat {
+    background-size: 100px 100px;
+    width: 100px;
+    height: 100px;
+}
+
+
+.sgrpg.charsheet .attr a[type="roll"].large {
+    font-size: 14px;
+    margin-top: 20px;
+    width: 38%;
+}
+
+.sgrpg.charsheet .attr span.mod {
+
+margin-top: 0;
+margin-bottom: 40px;
+
 }
